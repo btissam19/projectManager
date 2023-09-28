@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/CSS/dashboardout.css">
+    <style>
+        /* Agregar estilos para la vista de dispositivos pequeños */
+        @media (max-width: 768px) {
+            .flex-wrap {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .section-small {
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="flex flex-col h-screen bg-gray-100">
+    <div class="bg-white text-white shadow w-full p-2 flex items-center justify-between">
+        <div class="flex items-center  ">
+            <div class="hidden md:flex items-center w-28 h-18 mr-2"> 
+               
+                <h2 class="font-bold text-xl">logo</h2>
+            </div>
+            <div class="md:hidden flex items-center">
+                <button id="menuBtn">
+                    <i class="fas fa-bars text-gray-500 text-lg"></i> 
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="flex-1 flex">
+        <div class="p-2 bg-white w-60 flex flex-col hidden md:flex" id="sideNav">
+            <nav>
+                <button class="block text-gray-500 py-2.5 px-4 my-4 rounded transition duration-200 hover:bg-gradient-to-r hover:from-cyan-400 hover:to-cyan-300 hover:text-white" >
+                    <i class="fas fa-home mr-2"></i><a href="/dashboard">Dashboard</a>
+                </button>
+                <a class="block text-gray-500 py-2.5 px-4 my-4 rounded transition duration-200 hover:bg-gradient-to-r hover:from-cyan-400 hover:to-cyan-300 hover:text-white"
+                 href="/logout">
+                      <i class="fa fa-sign-out" ></i>Logout
+                </a>
+
+            </nav>
+
+        </div>
+        <div class="flex-1 p-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-2 p-2">
+                    <div class="bg-white p-4 rounded-md ">
+                        <h2 class="text-gray-500 text-lg font-semibold pb-1">Daily tasks</h2>
+                         <div class="my-1"></div> 
+                        <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+                             <div class=" flex items-center justify-center">
+                             <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-lg"> 
+                            <p class="text-xl text-gray-600  text-bold text-center">Open your task manager from here</p> 
+                             <div class="flex justify-center space-x-4 my-4">
+                         <button class="bg-gradient-to-r from-cyan-400 to-cyan-600 text-white px-4 py-2 rounded-md w-1/3"><a href="/task">Open</a></button>
+                        {{!-- <button class="bg-gradient-to-r from-cyan-400 to-cyan-600 text-white px-4 py-2 rounded-md w-1/3"><a href="/dashboard">Back </a></button> --}}
+      </div>
+    </div>
+                            </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-md">
+                        <h2 class="text-gray-500 text-lg font-semibold pb-1">completed vs incompleted Tasks</h2>
+                        <div class="my-1"></div>
+                        {{#each tasks}}
+                        <div class="single-task {{#if completed}}task-completed{{/if}}"></div>
+                        {{/each}}
+                         <!-- Espacio de separación -->
+                        <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div> <!-- Línea con gradiente -->
+                        <div class="chart-container" style="position: relative; height:150px; width:100%">
+                            <!-- El canvas para la gráfica -->
+                            <canvas id="commercesChart"></canvas>
+                        </div>
+                    </div>
+                     <div class="bg-white p-4 rounded-md">
+                <h2 class="text-gray-500 text-lg font-semibold pb-4">Project</h2>
+                <div class="my-1"></div> <!-- Espacio de separación -->
+                <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div> <!-- Línea con gradiente -->
+               <div class=" flex items-center justify-center">
+                             <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-lg"> 
+                            <p class="text-xl text-gray-600  text-bold text-center">Open project manger from here</p> 
+                             <div class="flex justify-center space-x-4 my-4">
+                         <button class="bg-gradient-to-r from-cyan-400 to-cyan-600 text-white px-4 py-2 rounded-md w-1/3"><a href="/transaction">Open</a></button>
+                     </div>
+                  </div>
+                            </div>
+                    </div>
+                   <div class="bg-white p-4 rounded-md mt-4">
+                 <h2 class="text-gray-500 text-lg font-semibold pb-4">Project Status</h2>
+                <div class="my-1"></div> 
+                  {{#each truncs}}
+               <div class="single-project {{status}}"></div>
+               {{/each}}
+
+                 <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+                     <div class="chart-container" style="position: relative; height:150px; width:100%">
+                            <!-- El canvas para la gráfica -->
+                            <canvas id="commercesChartTow"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+window.addEventListener('DOMContentLoaded', (event) => {
+    // For tasks
+    let tasks = document.getElementsByClassName('single-task');
+    let completedTasks = 0;
+    let totalTasks = tasks.length;
+
+    for(let task of tasks) {
+        if(task.classList.contains('task-completed')) {
+            completedTasks++;
+        }
+    }
+
+    let uncompletedTasks = totalTasks - completedTasks;
+    completedTasks = (completedTasks * 100) / totalTasks;
+    uncompletedTasks = (uncompletedTasks * 100) / totalTasks;
+
+    var commercesChart = new Chart(document.getElementById('commercesChart'), {
+        type: 'doughnut',
+        data: {
+            labels: [`completed ${completedTasks.toFixed(2)}%`, `uncompleted ${uncompletedTasks.toFixed(2)}%`],
+            datasets: [{
+                data: [completedTasks, uncompletedTasks],
+                backgroundColor: ['#06B6D4', '#CFFAFE'],
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                position: 'bottom'
+            }
+        }
+    });
+
+    // For projects
+    let projects = document.getElementsByClassName('single-project');
+    let completedProjects = 0;
+    let inProgressProjects = 0;
+    let cancelledProjects = 0;
+    let totalProject=projects.length
+
+    for(let project of projects) {
+        if(project.classList.contains('completed')) {
+            completedProjects++;
+        } else if (project.classList.contains('in_progress')) {
+            inProgressProjects++;
+        } else if (project.classList.contains('cancelled')) {
+            cancelledProjects++;
+        }
+    }
+    completedProjects=(completedProjects*100)/totalProject
+    inProgressProjects=(inProgressProjects*100)/totalProject
+    cancelledProjects=(cancelledProjects*100)/totalProject
+
+    var commercesChartTow = new Chart(document.getElementById('commercesChartTow'), {
+        type: 'doughnut',
+        data: {
+            labels: [`completed ${completedProjects.toFixed(2)}%`, `in progress ${inProgressProjects.toFixed(2)}%`, `cancelled ${cancelledProjects.toFixed(2)}%`],
+            datasets: [{
+                data: [completedProjects, inProgressProjects, cancelledProjects],
+                backgroundColor: ['#06B6D4', '#6EE7F9', '#CFFAFE'],
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            legend: {
+                position: 'bottom'
+            }
+        }
+    });
+
+    const menuBtn = document.getElementById('menuBtn');
+    const sideNav = document.getElementById('sideNav');
+
+    menuBtn.addEventListener('click', () => {
+        sideNav.classList.toggle('hidden'); 
+    });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/CSS/dashboardout.css">
+    <style>
+        /* Agregar estilos para la vista de dispositivos pequeños */
+        @media (max-width: 768px) {
+            .flex-wrap {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .section-small {
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- component -->
+<div class="overflow-x-auto">
+        <div class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
+            <div class="w-full lg:w-5/6">
+                <div class="bg-white shadow-md rounded my-6">
+                    <table class="min-w-max w-full table-auto" id="tablDom">
+                        <thead>
+                            <tr class="bg-gradient-to-r from-cyan-400 to-cyan-600  text-white font-bold uppercase text-sm leading-normal">
+                                <th class="py-3 px-6 text-left">Project</th>
+                                <th class="py-3 px-6 text-left">Devlopper Name</th>
+                                <th class="py-3 px-6 text-center">Client Name</th>
+                                <th class="py-3 px-6 text-center">status</th>
+                                <th class="py-3 px-6 text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-600 text-sm font-light">
+    {{#each truncs}}
+          <tr class="border-b border-gray-200 hover:bg-gray-100" id="mainTr">
+        <td class="py-3 px-6 text-left whitespace-nowrap">
+            <div class="flex items-center">
+                <!-- Displaying the project name -->
+                <span class="font-medium">{{project}}</span>
+            </div>
+        </td>
+        <td class="py-3 px-6 text-center whitespace-nowrap">
+            <div class="flex items-center">
+                <span class="font-medium">{{developer}}</span>
+            </div>
+        </td>
+        <!-- Displaying the client name -->
+        <td class="py-3 px-6 text-center">
+            <span class="font-medium">{{client}}</span>
+        </td>
+        <!-- Displaying the status -->
+        <td class="py-3 px-6 text-center">
+            <span class="bg-gradient-to-r  from-cyan-400 to-cyan-600  text-white py-1 px-3 rounded-full text-xs">{{status}}</span>
+             <div class="single-project {{status}}" ></div>
+        </td>
+        <!-- Edit and Delete Actions -->
+        <td class="py-3 px-6 text-center">
+            <div class="flex item-center justify-center">
+                <!-- Edit Link -->
+                <div class="w-4 mr-2 transform hover:text-cyan-600 hover:scale-110">
+                    <a href="/transaction/{{_id}}" class="edit-link">
+                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                                            </svg>
+                    </a>
+                </div>
+                <!-- Delete Link (or action) -->
+                <div class="w-4 mr-2 transform hover:text-cyan-600 hover:scale-110">
+            <button type="button" class="delete-btn" data-id="{{_id}}">
+                <i class="fas fa-trash"></i>
+            </button>
+                </div>
+            </div>
+        </td>
+    </tr>
+    {{/each}}
+</tbody>
+</table>
+   
+ 
+</div>
+<div class="text-center">
+        <p class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-600  text-white font-bold  py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mt-4 mb-6"><a href="/project" class=" text-white">add project</a></p> <a href="/dashboard" class="text-cyan-600">back to dashboard</a></p></div>
+</div>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script >
+    let tableDOM=document.getElementById('tablDom')
+    tableDOM.addEventListener('click', async (e) => {
+    const el = e.target;
+    if (el.classList.contains('delete-btn') || el.parentElement.classList.contains('delete-btn')) {
+        const deleteButton = el.classList.contains('delete-btn') ? el : el.parentElement;
+        const id = deleteButton.dataset.id;
+        try {
+            const response = await axios.delete(`/transaction/${id}`);
+            
+            console.log("Response from server:", response);
+                
+            deleteButton.closest('tr').remove();
+        } catch (error) {
+            console.log("Error:", error);
+        }
+    }
+});
+
+</script>
+</body>
+</html>

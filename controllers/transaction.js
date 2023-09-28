@@ -1,11 +1,13 @@
 
-const {Truncs}=require('../database/mongo')
+const {Truncs,User}=require('../database/mongo')
 
 const getAllTruncs = async (req, res) => {
     try {
         const truncs = await Truncs.find({}).lean();
+        const users = await User.find({}).lean();
+        console.log(users)
         console.log(truncs)
-        return res.render('projectClient', { layout: false, truncs: truncs });
+        return res.render('projectClient', { layout: false, truncs: truncs ,users:users});
     } catch (e) {
         res.json({ msg: e });
     }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+
+    <!-- Users Container -->
+    <div class="flex flex-wrap p-4"> <!-- flex-wrap ensures that the items wrap around after 6 entries -->
+
+        <!-- User Card -->
+        {{#each users}}     
+        <div class="bg-white shadow-lg rounded-lg p-4 max-w-xs m-2 w-1/6"> <!-- w-1/6 ensures 6 cards in a row -->
+            <!-- User Name (from email) -->
+            <h2 class="text-center text-2xl text-gray-900 mb-2" data-email="{{username}}"></h2>
+            
+            <!-- User Email -->
+            <p class="text-center text-gray-600 mb-6">{{username}}</p>
+        </div>
+        {{/each}}
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const nameElements = document.querySelectorAll('[data-email]');
+            nameElements.forEach(el => {
+                const email = el.getAttribute('data-email');
+                const name = email.split('@')[0].split('.').join(' ');
+                el.textContent = name;
+            });
+        });
+    </script>
+
+</body>
+</html>

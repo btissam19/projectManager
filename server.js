@@ -5,12 +5,13 @@ const express = require('express');
 // database
 const { User, connectDB,Task,Truncs} = require('./database/mongo');
 
-
+const ADMIN_EMAILS = ['admin@gamil.com'];
 // templet engine
 const exphbs = require('express-handlebars');
 // routes
 const taskrouter = require('./router/task');
 const transcRoute = require('./router/transaction');
+const usersRoute=require('./router/users')
 // database models 
 
 //controller for autntication 
@@ -56,6 +57,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/task', taskrouter);
 app.use('/transaction', transcRoute);
+app.use('/users',usersRoute)
 
 
 // app.post('/login', passport.authenticate('local', { failureRedirect: '/login', successRedirect: '/dashboard' }));
@@ -72,7 +74,11 @@ app.post('/login', (req, res, next) => {
             if (err) {
                 return next(err);
             }
-            return res.redirect('/dashboard');
+            if (user.admin) {
+                return res.redirect('/Admindashboard');
+            } else {
+                return res.redirect('/dashboard');
+            }
         });
     })(req, res, next);
 });
@@ -81,6 +87,7 @@ app.post('/login', (req, res, next) => {
 app.post('/singup',async (req, res, next) => {
 
     const existingUser = await User.findOne({ username: req.body.email }).lean();
+    
     if (existingUser) {
         return res.render('sing',{ layout: false, msg: 'User already exists in the database!' })
     }
@@ -90,7 +97,7 @@ app.post('/singup',async (req, res, next) => {
    const newUser = new User({
        username: req.body.email,
        hash: hash,
-       admin: false
+       admin: ADMIN_EMAILS.includes(req.body.email)
    });
 
    newUser.save()
@@ -105,7 +112,7 @@ app.get('/', (req, res) => res.render('sing', { layout: false }));
 
 app.get('/dashboard', isAuth, async (req, res) => {
     try { // Added try/catch for error handling
-        const tasks = await Task.find({}).lean();
+        const tasks = await Task.find({  }).lean();
         const truncs = await Truncs.find({}).lean();
         res.render('layouts/dashboard', { layout: false, tasks: tasks, truncs: truncs });
     } catch (error) {
@@ -113,9 +120,24 @@ app.get('/dashboard', isAuth, async (req, res) => {
         res.status(500).send('Internal Server Error');
     }
 });
+app.get('/Admindashboard',isAuth, isAdmin, async (req, res) => {
+    try { // Added try/catch for error handling
+        const truncs = await Truncs.find({}).lean();
+        res.render('layouts/adminDashboard', { layout: false, truncs: truncs });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
+});
 
-app.get('/project',isAuth,(req, res) => {
-    res.render('projectForms',{ layout: false });
+app.get('/project',isAuth, async (req, res) => {
+    try {
+        const users=await User.find({}).lean();
+        res.render('projectForms',{ layout: false ,users:users});
+    } catch (error) {
+        console.log(error)
+    }
+   
 });
 
 // app.get('/login', (req, res) => res.render('login', { layout: false }));

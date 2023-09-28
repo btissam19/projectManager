@@ -26,10 +26,14 @@
           <label for="apellido" class="block mb-2 text-sm text-gray-600">project Name</label>
           <input type="text" id="projectName" name="project" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
         </div>
-        <div class="mb-4">
-          <label for="email" class="block mb-2 text-sm text-gray-600">Devlopper Name</label>
-          <input type="text" id="devloper" name="developer" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
-        </div>
+     <div class="mb-6">
+    <label for="status" class="block mb-2 text-sm text-gray-600">devolepper name</label>
+    <select  id="devloper" name="developer" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
+        {{#each users}} 
+        <option  data-email="{{username}}"></option>
+         {{/each}}
+    </select>
+</div>
         <div class="mb-4">
           <label for="password" class="block mb-2 text-sm text-gray-600">Client Name</label>
           <input type="text" id="client" name="client" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
@@ -54,6 +58,16 @@
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+       document.addEventListener('DOMContentLoaded', function() {
+            const nameElements = document.querySelectorAll('[data-email]');
+            nameElements.forEach(el => {
+                const email = el.getAttribute('data-email');
+                const name = email.split('@')[0].split('.').join(' ');
+                el.textContent = name;
+            });
+        });
+    </script>
 
 <script >
   const formAlertDOM = document.querySelector('.form-alert');

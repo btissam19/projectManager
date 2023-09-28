@@ -1,4 +1,5 @@
 const express=require('express')
+// const isAuth=require('../midlleware/authoMiddleware').isAuth
 const tasksRoute=express.Router();
 const {deleteTask,editTask,getSingleTask,createNewTask,getAllTask}=require('../controllers/task')
 

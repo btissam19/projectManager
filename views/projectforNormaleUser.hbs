@@ -23,67 +23,6 @@
         <div class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
             <div class="w-full lg:w-5/6">
                 <div class="bg-white shadow-md rounded my-6">
-{{!-- <table class="min-w-max w-full table-auto bg-white shadow-md rounded-lg" id="tablDom">
-    <thead>
-        <tr class="bg-gradient-to-r from-cyan-400 to-cyan-600 text-white">
-            <th class="py-3 px-6 text-left font-bold uppercase text-sm leading-normal">Project</th>
-            <th class="py-3 px-6 text-center font-bold uppercase text-sm leading-normal">Client Name</th>
-            <th class="py-3 px-6 text-center font-bold uppercase text-sm leading-normal">Status</th>
-        </tr>
-    </thead>
-    <tbody class="text-gray-600 text-sm font-light divide-y divide-gray-200">
-    {{#each truncs}}
-        <tr class="hover:bg-gray-100 transition-all duration-200">
-            <!-- Displaying the project name -->
-            <td class="py-3 px-6 text-left whitespace-nowrap">
-                <div class="flex items-center">
-                    <span class="font-medium">{{project}}</span>
-                </div>
-            </td>
-            <!-- Displaying the client name -->
-            <td class="py-3 px-6 text-center">
-                <span class="font-medium">{{client}}</span>
-            </td>
-            <!-- Displaying the status -->
-            <td class="py-3 px-6 text-center">
-                <span class="bg-gradient-to-r from-cyan-400 to-cyan-600 text-white py-1 px-3 rounded-full">{{status}}</span>
-                <!-- I've removed the unnecessary div as it was empty and without context -->
-            </td>
-
-            <!-- Edit and Delete Actions -->
-        </tr>
-    {{/each}}
-    </tbody>
-</table> --}}
-{{!-- <table class="table-auto w-full bg-white shadow-md rounded-lg" id="tablDom">
-    <thead>
-        <tr class="bg-gradient-to-r from-cyan-400 to-cyan-600 text-white">
-            <th class="py-3 px-6 text-left font-bold uppercase text-sm leading-normal whitespace-nowrap">Project</th>
-            <th class="py-3 px-6 text-center font-bold uppercase text-sm leading-normal">Client Name</th>
-            <th class="py-3 px-6 text-center font-bold uppercase text-sm leading-normal">Status</th>
-        </tr>
-    </thead>
-    <tbody class="text-gray-600 text-sm font-light divide-y divide-gray-200">
-    {{#each truncs}}
-        <tr class="hover:bg-gray-100 transition-all duration-200">
-            <!-- Displaying the project name -->
-            <td class="py-3 px-6 text-left whitespace-nowrap">
-                <div class="flex items-center">
-                    <span class="font-medium">{{project}}</span>
-                </div>
-            </td>
-            <!-- Displaying the client name -->
-            <td class="py-3 px-6 text-center">
-                <span class="font-medium">{{client}}</span>
-            </td>
-            <!-- Displaying the status -->
-            <td class="py-3 px-6 text-center">
-                <span class="bg-gradient-to-r from-cyan-400 to-cyan-600 text-white py-1 px-3 rounded-full">{{status}}</span>
-            </td>
-        </tr>
-    {{/each}}
-    </tbody>
-</table> --}}
 <table class="min-w-max w-full table-auto bg-white shadow-md rounded-lg" id="tablDom">
     <thead>
         <tr class="bg-gradient-to-r from-cyan-400 to-cyan-600 text-white">
@@ -118,11 +57,16 @@
 
  
 </div>
-<div class="text-center">
-        <p class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-600  text-white font-bold  py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mt-4 mb-6">
-        <a href="/generalMessage" class=" text-white">Message to Admin</a></p> 
-        <a href="/dashboard" class="text-cyan-600">back to dashboard</a></p></div>
+<div class="text-center p-4" style="width: fit-content; margin: 0 auto;">
+    <p class="bg-gradient-to-r from-cyan-400 to-cyan-600 text-white py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mt-4 mb-6">
+        <a href="/generalMessage" class="text-white">Message to Admin</a>
+    </p>
+    <p>
+        <a href="/dashboard" class="text-cyan-600">back to dashboard</a>
+    </p>
 </div>
+
+
 
 </div>
 </div>

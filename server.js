@@ -20,7 +20,7 @@ const hbsInstance = hbs.create({
 // routes
 const taskrouter = require('./router/task');
 const transcRoute = require('./router/transaction');
-const usersRoute=require('./router/users')
+const messageRoute=require('./router/message')
 
 
 //controller for autntication 
@@ -69,7 +69,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use('/task', taskrouter);
 app.use('/transaction', transcRoute);
-app.use('/users',usersRoute)
+app.use('/message',messageRoute)
 
 
 // app.post('/login', passport.authenticate('local', { failureRedirect: '/login', successRedirect: '/dashboard' }));
@@ -174,6 +174,15 @@ app.get('/project',isAuth, async (req, res) => {
         console.log(error)
     }
    
+});
+app.get('/users',isAdmin,async (req, res) => {
+    try { // Added try/catch for error handling
+        const users = await User.find({}).lean();
+        res.render('users', { layout: false, users:users });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Internal Server Error');
+    }
 });
 
 app.get('/generalMessage',(req,res)=>{

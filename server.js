@@ -7,13 +7,21 @@ const { User, connectDB,Task,Truncs} = require('./database/mongo');
 
 const ADMIN_EMAILS = ['admin@gamil.com'];
 // templet engine
-const exphbs = require('express-handlebars');
+const hbs = require('express-handlebars');
+const hbsInstance = hbs.create({
+    helpers: {
+        equals: function(arg1, arg2, options) {
+            return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
+        }
+    }
+});
+
+
 // routes
 const taskrouter = require('./router/task');
 const transcRoute = require('./router/transaction');
 const usersRoute=require('./router/users')
-const {getAllTruncsforUser}=require('./controllers/transaction')
-// database models 
+
 
 //controller for autntication 
 
@@ -30,12 +38,15 @@ const MongoStore = ConnectMongo(session);
 const app = express();
 const port = process.env.PORT || 3000;
 // general express middleware
-app.engine('hbs', exphbs.engine({
-    extname: '.hbs',
-    layoutsDir: path.join(__dirname, './views'),
-    partialsDir: 'views/partials'
-}));
+// app.engine('hbs', hbsInstance.engine({
+//     extname: '.hbs',
+//     layoutsDir: path.join(__dirname, './views'),
+//     partialsDir: 'views/partials'
+// }));
+// app.set('view engine', 'hbs');
+app.engine('hbs', hbsInstance.engine);
 app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -165,7 +176,9 @@ app.get('/project',isAuth, async (req, res) => {
    
 });
 
-
+app.get('/generalMessage',(req,res)=>{
+    res.render('generalMessage',{ layout: false})
+})
 
 app.get('/singup', (req, res) => res.render('sing', { layout: false }));
 app.get('/logout', function(req, res, next){

@@ -8,13 +8,16 @@ const connectDB = mongoose.createConnection(uri, {
  const UserSchema= require('../models/User')
  const taskSchema=require('../models/Task')
  const projectSchema=require('../models/Transc')
+ const UserprojectSchema=require('../models/UserProject');
 const User = connectDB.model('User',UserSchema);
 const Task=connectDB.model('Task',taskSchema)
 const Truncs=connectDB.model('Project',projectSchema)
+const UserProject=connectDB.model('UserProject',UserprojectSchema)
 
 module.exports = {
     connectDB,
     User ,
     Task,
-    Truncs
+    Truncs,
+    UserProject
 };

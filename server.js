@@ -12,6 +12,7 @@ const exphbs = require('express-handlebars');
 const taskrouter = require('./router/task');
 const transcRoute = require('./router/transaction');
 const usersRoute=require('./router/users')
+const {getAllTruncsforUser}=require('./controllers/transaction')
 // database models 
 
 //controller for autntication 
@@ -112,17 +113,38 @@ app.get('/', (req, res) => {
     res.render('login', { layout: false, error: errorMessage });});
 
 
+
+// ... (other imports and configurations)
+
 app.get('/dashboard', isAuth, async (req, res) => {
-    try { // Added try/catch for error handling
-        const tasks = await Task.find({user: req.user._id } ).lean();
-        console.log(tasks);
-        const truncs = await Truncs.find({}).lean();
-        res.render('layouts/dashboard', { layout: false, tasks: tasks, truncs: truncs });
+    try {
+        // Destructure the user properties for easier access
+        const { _id, username } = req.user;
+
+        // Fetch tasks and projects (truncs) associated with the current user.
+        const [tasks, truncs] = await Promise.all([
+            Task.find({ user: _id }).lean(),
+            Truncs.find({ developer: username }).lean()
+        ]);
+
+        // Render the dashboard with the filtered tasks and projects.
+        res.render('layouts/dashboard', { layout: false, tasks, truncs });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
     }
 });
+
+// ... (rest of your code)
+
+app.get('/project/user',isAuth,async (req, res) => {
+    try {
+        const truncs = await Truncs.find({developer:req.user.username}).lean();
+        return res.render('projectforNormaleUser', { layout: false, truncs: truncs});
+    } catch (e) {
+        res.json({ msg: e });
+    }
+})
 app.get('/Admindashboard',isAuth, isAdmin, async (req, res) => {
     try { // Added try/catch for error handling
         const truncs = await Truncs.find({}).lean();

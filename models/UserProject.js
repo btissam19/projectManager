@@ -1,13 +1,13 @@
 const mongoose = require('mongoose');
 
-const TranscSchema = new mongoose.Schema({
+const UserprojectSchema = new mongoose.Schema({
     project: {
         type: String, 
         required: true
     },
-    developer: {
-        type: String,
-        ref: 'User',  // This is more for documentation than functionality since it's a String and not ObjectId
+    developer: {  
+        type: mongoose.Schema.Types.ObjectId, // This is a reference to the User schema
+        ref: 'User',
         required: true
     },
     client: {
@@ -21,5 +21,4 @@ const TranscSchema = new mongoose.Schema({
       },
   
 });
-
-module.exports = TranscSchema;
+module.exports=UserprojectSchema

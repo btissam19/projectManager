@@ -140,6 +140,7 @@ app.get('/dashboard', isAuth, async (req, res) => {
 app.get('/project/user',isAuth,async (req, res) => {
     try {
         const truncs = await Truncs.find({developer:req.user.username}).lean();
+        
         return res.render('projectforNormaleUser', { layout: false, truncs: truncs});
     } catch (e) {
         res.json({ msg: e });
@@ -178,11 +179,9 @@ app.get('/users',isAdmin,async (req, res) => {
 app.get('/users/messages',isAuth,isAdmin,async(req,res)=>{
 
     try {
-        // Get all messages and populate user data
         const messages = await Message.find({}).lean(); 
         console.log("Authenticated username:", req.user.username);
 
-        console.log(messages)
         res.render('messageforAdmin', { layout : false ,messages: messages});
     } catch (err) {
         console.log(err);
@@ -190,36 +189,13 @@ app.get('/users/messages',isAuth,isAdmin,async(req,res)=>{
 
 
 })
-// app.get('/users/messages', isAuth, isAdmin, async (req, res) => {
-
-//     try {
-//         const page = parseInt(req.query.page) || 1; // default to page 1
-//         const limit = 4; // 4 messages per page
-//         const skip = (page - 1) * limit;
-
-//         const totalMessages = await Message.countDocuments(); // Assuming your model name is Message
-//         const totalPages = Math.ceil(totalMessages / limit);
-
-//         // Get messages specific to the current page and populate user data
-//         const messages = await Message.find().skip(skip).limit(limit).lean();
-        
-//         console.log("Authenticated username:", req.user.username);
-//         console.log(messages);
-
-//         res.render('messageforAdmin', { 
-//             layout : false, 
-//             messages: messages, 
-//             currentPage: page, 
-//             totalPages: totalPages 
-//         });
-
-//     } catch (err) {
-//         console.log(err);
-//     }
-// });
 
 app.get('/generalMessage',isAuth,(req,res)=>{
     res.render('generalMessage',{ layout: false ,  username: req.user.username })
+   
+})
+app.get('/test',(req,res)=>{
+    res.render('notFoundProject',{ layout: false  })
    
 })
 

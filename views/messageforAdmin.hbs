@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/CSS/dashboardout.css">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <style>
+        @media (max-width: 768px) {
+            .flex-wrap {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .section-small {
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-200">
+
+<div class="min-h-screen flex flex-col justify-center">
+    {{!-- <h1 class="text-3xl font-bold p-4 rounded bg-gradient-to-r from-cyan-400 to-cyan-600 text-white text-center mb-6">
+        Messages You Receive
+    </h1> --}}
+
+    <div class="container mx-auto p-4 space-y-4">
+          <h1 class="text-3xl font-bold  shadow-md rounded-md p-4 max-w-sm mx-auto bg-gradient-to-r from-cyan-400 to-cyan-600 text-white text-center mb-6">
+        Messages You Receive
+    </h1>
+        {{#each messages}}     
+        <div class="bg-white shadow-md rounded-md p-4 max-w-sm mx-auto">
+            <!-- Chat Card -->
+            <div class="flex items-start space-x-3">
+                <!-- User Initial in Red Circle -->
+                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 text-white flex items-center justify-center text-2xl font-bold" data-initial="{{username}}">
+                    <!-- User Initial will be added by JavaScript -->
+                </div>
+
+                <div>
+                    <!-- User Name -->
+                    <h2 class="text-xl font-medium text-gray-900" data-email="{{username}}"></h2>
+                    <!-- Message -->
+                    <p class="text-gray-600">{{message}}</p>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+       <div class="text-center">
+        <a href="/Admindashboard" class="text-cyan-600">back to dashboard</a></p></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const nameElements = document.querySelectorAll('[data-email]');
+        const initialElements = document.querySelectorAll('[data-initial]');
+
+        nameElements.forEach(el => {
+            const email = el.getAttribute('data-email');
+            const name = email.split('@')[0].split('.').join(' ');
+            el.textContent = name;
+        });
+
+        initialElements.forEach(el => {
+            const username = el.getAttribute('data-initial');
+            const initial = username[0].toUpperCase();
+            el.textContent = initial;
+        });
+    });
+</script>
+
+</body>
+</html>

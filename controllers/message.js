@@ -10,16 +10,20 @@ const getAllMessages = async (req, res) => {
 }
 const createMessage = async (req, res) => {
     try {
-        const { message} = req.body;
+        const { message } = req.body;
+        const username = req.user.username; // Assuming your authentication middleware attaches the authenticated user to req.user
+
         const newMessage = new Message({ 
-            message
+            message,
+            username
         });
         await newMessage.save();
-        res.json({ message:newMessage });
+        res.json({ message: newMessage });
     } catch (e) {
         res.status(500).json({ msg: e.message });
     }
-}
+};
+
 module.exports = {
     createMessage,
     getAllMessages 

@@ -3,24 +3,17 @@ require('dotenv').config();
 // use express
 const express = require('express');
 // database
-const { User, connectDB,Task,Truncs} = require('./database/mongo');
+const { User, connectDB,Task,Truncs,Message} = require('./database/mongo');
 
 const ADMIN_EMAILS = ['admin@gamil.com'];
-// templet engine
-const hbs = require('express-handlebars');
-const hbsInstance = hbs.create({
-    helpers: {
-        equals: function(arg1, arg2, options) {
-            return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
-        }
-    }
-});
+const exphbs = require('express-handlebars');
 
 
 // routes
 const taskrouter = require('./router/task');
 const transcRoute = require('./router/transaction');
 const messageRoute=require('./router/message')
+
 
 
 //controller for autntication 
@@ -37,16 +30,12 @@ const MongoStore = ConnectMongo(session);
 // express app
 const app = express();
 const port = process.env.PORT || 3000;
-// general express middleware
-// app.engine('hbs', hbsInstance.engine({
-//     extname: '.hbs',
-//     layoutsDir: path.join(__dirname, './views'),
-//     partialsDir: 'views/partials'
-// }));
-// app.set('view engine', 'hbs');
-app.engine('hbs', hbsInstance.engine);
+app.engine('hbs', exphbs.engine({
+    extname: '.hbs',
+    layoutsDir: path.join(__dirname, '../views') , 
+    partialsDir: 'views/partials'
+}));
 app.set('view engine', 'hbs');
-app.set('views', path.join(__dirname, 'views'));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -185,8 +174,53 @@ app.get('/users',isAdmin,async (req, res) => {
     }
 });
 
-app.get('/generalMessage',(req,res)=>{
-    res.render('generalMessage',{ layout: false})
+
+app.get('/users/messages',isAuth,isAdmin,async(req,res)=>{
+
+    try {
+        // Get all messages and populate user data
+        const messages = await Message.find({}).lean(); 
+        console.log("Authenticated username:", req.user.username);
+
+        console.log(messages)
+        res.render('messageforAdmin', { layout : false ,messages: messages});
+    } catch (err) {
+        console.log(err);
+    }
+
+
+})
+// app.get('/users/messages', isAuth, isAdmin, async (req, res) => {
+
+//     try {
+//         const page = parseInt(req.query.page) || 1; // default to page 1
+//         const limit = 4; // 4 messages per page
+//         const skip = (page - 1) * limit;
+
+//         const totalMessages = await Message.countDocuments(); // Assuming your model name is Message
+//         const totalPages = Math.ceil(totalMessages / limit);
+
+//         // Get messages specific to the current page and populate user data
+//         const messages = await Message.find().skip(skip).limit(limit).lean();
+        
+//         console.log("Authenticated username:", req.user.username);
+//         console.log(messages);
+
+//         res.render('messageforAdmin', { 
+//             layout : false, 
+//             messages: messages, 
+//             currentPage: page, 
+//             totalPages: totalPages 
+//         });
+
+//     } catch (err) {
+//         console.log(err);
+//     }
+// });
+
+app.get('/generalMessage',isAuth,(req,res)=>{
+    res.render('generalMessage',{ layout: false ,  username: req.user.username })
+   
 })
 
 app.get('/singup', (req, res) => res.render('sing', { layout: false }));

@@ -58,7 +58,7 @@
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-{{!-- <script>
+<script>
        document.addEventListener('DOMContentLoaded', function() {
             const nameElements = document.querySelectorAll('[data-email]');
             nameElements.forEach(el => {
@@ -67,7 +67,7 @@
                 el.textContent = name;
             });
         });
-    </script> --}}
+    </script>
 
 <script >
   const formAlertDOM = document.querySelector('.form-alert');
@@ -99,7 +99,7 @@
 
         if (response.status === 200 && response.data) {
             formAlertDOM.style.display = 'block';
-            formAlertDOM.textContent = 'Success, task added';
+            formAlertDOM.textContent = 'Success, project add  added';
             formAlertDOM.style.color = 'green';
         } else {
             throw new Error('Server responded, but there was an issue.');

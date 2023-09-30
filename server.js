@@ -68,7 +68,7 @@ app.post('/login', (req, res, next) => {
             return next(err);
         }
         if (!user) {
-            return res.redirect('/login?error=' + info.message);
+            return res.redirect('/?error=' + info.message);
         }
         req.logIn(user, (err) => {
             if (err) {
@@ -105,14 +105,17 @@ app.post('/singup',async (req, res, next) => {
            console.log(user);
        });
 
-   res.redirect('/login');
+   res.redirect('/');
 });
-app.get('/', (req, res) => res.render('sing', { layout: false }));
+app.get('/', (req, res) => {  
+    let errorMessage = req.query.error;
+    res.render('login', { layout: false, error: errorMessage });});
 
 
 app.get('/dashboard', isAuth, async (req, res) => {
     try { // Added try/catch for error handling
-        const tasks = await Task.find({  }).lean();
+        const tasks = await Task.find({user: req.user._id } ).lean();
+        console.log(tasks);
         const truncs = await Truncs.find({}).lean();
         res.render('layouts/dashboard', { layout: false, tasks: tasks, truncs: truncs });
     } catch (error) {
@@ -140,12 +143,9 @@ app.get('/project',isAuth, async (req, res) => {
    
 });
 
-// app.get('/login', (req, res) => res.render('login', { layout: false }));
-app.get('/login', (req, res) => {
-    let errorMessage = req.query.error;
-    res.render('login', { layout: false, error: errorMessage });
-});
 
+
+app.get('/singup', (req, res) => res.render('sing', { layout: false }));
 app.get('/logout', function(req, res, next){
     req.logout(function(err) {
       if (err) { return next(err); }

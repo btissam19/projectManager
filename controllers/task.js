@@ -3,7 +3,7 @@ const { Task } = require("../database/mongo");
 const getAllTask = async (req, res) => {
     try {
         // Get tasks specific to the logged-in user
-        const tasks = await Task.find({}).lean();
+        const tasks = await Task.find({user: req.user._id }).lean();
         return res.render('taksindex', { 
             layout: false,
             tasks: tasks
@@ -16,11 +16,10 @@ const getAllTask = async (req, res) => {
 const createNewTask = async (req, res) => {
     try {
         const { name } = req.body;
-        // Create a new task and associate it with the logged-in user
         const newTask = new Task({ 
             name, 
             completed: false, 
-             // Use the authenticated user's ID
+            user: req.user._id
         });
         await newTask.save();
         res.json({ task: newTask });

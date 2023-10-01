@@ -58,17 +58,6 @@
   </div>
 
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script>
-       document.addEventListener('DOMContentLoaded', function() {
-            const nameElements = document.querySelectorAll('[data-email]');
-            nameElements.forEach(el => {
-                const email = el.getAttribute('data-email');
-                const name = email.split('@')[0].split('.').join(' ');
-                el.textContent = name;
-            });
-        });
-    </script>
-
 <script >
   const formAlertDOM = document.querySelector('.form-alert');
   const project = document.getElementById('projectName');

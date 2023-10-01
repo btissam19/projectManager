@@ -23,7 +23,7 @@
         <div class="min-w-screen min-h-screen bg-gray-100 flex items-center justify-center bg-gray-100 font-sans overflow-hidden">
             <div class="w-full lg:w-5/6">
                 <div class="bg-white shadow-md rounded my-6">
-                    <table class="min-w-max w-full table-auto" id="tablDom">
+                    {{!-- <table class="min-w-max w-full table-auto" id="tablDom">
                         <thead>
                             <tr class="bg-gradient-to-r from-cyan-400 to-cyan-600  text-white font-bold uppercase text-sm leading-normal">
                                 <th class="py-3 px-6 text-left">Project</th>
@@ -78,9 +78,63 @@
     </tr>
     {{/each}}
 </tbody>
-</table>
+                    </table> --}}
    
- 
+ {{#if truncs}}
+    <table class="min-w-max w-full table-auto" id="tablDom">
+        <thead>
+            <tr class="bg-gradient-to-r from-cyan-400 to-cyan-600 text-white font-bold uppercase text-sm leading-normal">
+                <th class="py-3 px-6 text-left">Project</th>
+                <th class="py-3 px-6 text-left">Developer Name</th>
+                <th class="py-3 px-6 text-center">Client Name</th>
+                <th class="py-3 px-6 text-center">Status</th>
+                <th class="py-3 px-6 text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody class="text-gray-600 text-sm font-light">
+        {{#each truncs}}
+            <tr class="border-b border-gray-200 hover:bg-gray-100" id="mainTr">
+                <td class="py-3 px-6 text-left whitespace-nowrap">
+                    <div class="flex items-center">
+                        <span class="font-medium">{{project}}</span>
+                    </div>
+                </td>
+                <td class="py-3 px-6 text-center whitespace-nowrap">
+                    <div class="flex items-center">
+                        <span class="font-medium">{{developer}}</span>
+                    </div>
+                </td>
+                <td class="py-3 px-6 text-center">
+                    <span class="font-medium">{{client}}</span>
+                </td>
+                <td class="py-3 px-6 text-center">
+                    <span class="bg-gradient-to-r from-cyan-400 to-cyan-600 text-white py-1 px-3 rounded-full text-xs">{{status}}</span>
+                    <div class="single-project {{status}}"></div>
+                </td>
+                <td class="py-3 px-6 text-center">
+                    <div class="flex item-center justify-center">
+                        <div class="w-4 mr-2 transform hover:text-cyan-600 hover:scale-110">
+                            <a href="/transaction/{{_id}}" class="edit-link">
+                                <!-- ... your SVG for edit ... -->
+                            </a>
+                        </div>
+                        <div class="w-4 mr-2 transform hover:text-cyan-600 hover:scale-110">
+                            <button type="button" class="delete-btn" data-id="{{_id}}">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {{/each}}
+        </tbody>
+    </table>
+{{else}}
+    <div class="flex items-center justify-center text-3xl text-red-600 font-bold">
+        You affect no project  yet to any user !!!
+    </div>
+{{/if}}
+
 </div>
 <div class="text-center">
         <p class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-600  text-white font-bold  py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mt-4 mb-6">

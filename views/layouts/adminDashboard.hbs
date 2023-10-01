@@ -96,7 +96,11 @@
                {{/each}}
 
                  <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
-                     <div class="chart-container" style="position: relative; height:150px; width:100%">
+                  <div class="no-project-message flex items-center  text-center justify-center text-4xl " style="display: none;">
+                          No project  yet to see its status !!!
+                      </div>
+                     <div class="chart-container-project" style="position: relative; height:150px; width:100%">
+                   
                             <!-- El canvas para la gráfica -->
                             <canvas id="commercesChartTow"></canvas>
                         </div>
@@ -128,9 +132,15 @@
             cancelledProjects++;
         }
     }
-    completedProjects=(completedProjects*100)/totalProject
+        let chartContainerProject = document.querySelector('.chart-container-project');
+    let noProjectMessage = document.querySelector('.no-project-message');
+         if (totalProject === 0) {
+        chartContainerProject.style.display = 'none';
+        noProjectMessage.style.display = 'block';
+}
+   else{ completedProjects=(completedProjects*100)/totalProject
     inProgressProjects=(inProgressProjects*100)/totalProject
-    cancelledProjects=(cancelledProjects*100)/totalProject
+    cancelledProjects=(cancelledProjects*100)/totalProject}
 
     var commercesChartTow = new Chart(document.getElementById('commercesChartTow'), {
         type: 'doughnut',

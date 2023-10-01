@@ -20,37 +20,43 @@
 <body class="bg-gray-200">
 
 <div class="min-h-screen flex flex-col justify-center">
-    {{!-- <h1 class="text-3xl font-bold p-4 rounded bg-gradient-to-r from-cyan-400 to-cyan-600 text-white text-center mb-6">
-        Messages You Receive
-    </h1> --}}
-
     <div class="container mx-auto p-4 space-y-4">
-          <h1 class="text-3xl font-bold  shadow-md rounded-md p-4 max-w-sm mx-auto bg-gradient-to-r from-cyan-400 to-cyan-600 text-white text-center mb-6">
-        Messages You Receive
-    </h1>
-        {{#each messages}}     
-        <div class="bg-white shadow-md rounded-md p-4 max-w-sm mx-auto">
-            <!-- Chat Card -->
-            <div class="flex items-start space-x-3">
-                <!-- User Initial in Red Circle -->
-                <div class="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 text-white flex items-center justify-center text-2xl font-bold" data-initial="{{username}}">
-                    <!-- User Initial will be added by JavaScript -->
-                </div>
+        <h1 class="text-3xl font-bold shadow-md rounded-md p-4 max-w-sm mx-auto bg-gradient-to-r from-cyan-400 to-cyan-600 text-white text-center mb-6">
+            Messages You Receive
+        </h1>
+        {{#if messages}}
+            {{#each messages}}     
+            <div class="bg-white shadow-md rounded-md p-4 max-w-sm mx-auto">
+                <!-- Chat Card -->
+                <div class="flex items-start space-x-3">
+                    <!-- User Initial in Red Circle -->
+                    <div class="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 text-white flex items-center justify-center text-2xl font-bold" data-initial="{{username}}">
+                        <!-- User Initial will be added by JavaScript -->
+                    </div>
 
-                <div>
-                    <!-- User Name -->
-                    <h2 class="text-xl font-medium text-gray-900" data-email="{{username}}"></h2>
-                    <!-- Message -->
-                    <p class="text-gray-600">{{message}}</p>
+                    <div>
+                        <!-- User Name -->
+                        <h2 class="text-xl font-medium text-gray-900" data-email="{{username}}"></h2>
+                        <!-- Message -->
+                        <p class="text-gray-600">{{message}}</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        {{/each}}
-       <div class="text-center">
-        <a href="/Admindashboard" class="text-cyan-600">back to dashboard</a></p></div>
+            {{/each}}
+            <div class="text-center">
+                <a href="/Admindashboard" class="text-cyan-600">back to dashboard</a>
             </div>
-        </div>
+        {{else}}
+            <div class="flex items-center justify-center h-64 text-3xl text-center  font-bold">
+                No messages found.
+            </div>
+        {{/if}}
+        <div class="text-center">
+        <a href="/Admindashboard" class="text-cyan-600">back to dashboard</a></p></div>
+</div>
     </div>
+</div>
+
 </div>
 
 <script>

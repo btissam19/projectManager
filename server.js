@@ -128,7 +128,7 @@ app.get('/dashboard', isAuth, async (req, res) => {
         ]);
 
         // Render the dashboard with the filtered tasks and projects.
-        res.render('layouts/dashboard', { layout: false, tasks, truncs });
+        res.render('layouts/dashboard', { layout: false, tasks, truncs , username});
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

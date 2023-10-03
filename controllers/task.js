@@ -2,7 +2,6 @@ const { Task } = require("../database/mongo");
 
 const getAllTask = async (req, res) => {
     try {
-        // Get tasks specific to the logged-in user
         const tasks = await Task.find({user: req.user._id }).lean();
         return res.render('taksindex', { 
             layout: false,

@@ -11,7 +11,7 @@ const getAllMessages = async (req, res) => {
 const createMessage = async (req, res) => {
     try {
         const { message } = req.body;
-        const username = req.user.username; // Assuming your authentication middleware attaches the authenticated user to req.user
+        const username = req.user.username; 
 
         const newMessage = new Message({ 
             message,

@@ -9,7 +9,7 @@ const taskSchema = new mongoose.Schema({
 
         },
         user: {
-            type: mongoose.Schema.Types.ObjectId, // This is a reference to the User schema
+            type: mongoose.Schema.Types.ObjectId, 
             ref: 'User',
             required: true
         }

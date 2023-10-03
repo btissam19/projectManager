@@ -5,7 +5,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="/CSS/dashboardout.css">
     <style>
-        /* Agregar estilos para la vista de dispositivos pequeños */
         @media (max-width: 768px) {
             .flex-wrap {
                 display: flex;
@@ -77,8 +76,8 @@
                     </div>
                     <div class="bg-white p-4 rounded-md">
                 <h2 class="text-gray-500 text-lg font-semibold pb-4">Project</h2>
-                <div class="my-1"></div> <!-- Espacio de separación -->
-                <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div> <!-- Línea con gradiente -->
+                <div class="my-1"></div> 
+                <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div> 
                <div class=" flex items-center justify-center">
                              <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-lg"> 
                             <p class="text-xl text-gray-600  text-bold text-center">Open project manger from here</p> 
@@ -100,8 +99,6 @@
                           No project  yet to see its status !!!
                       </div>
                      <div class="chart-container-project" style="position: relative; height:150px; width:100%">
-                   
-                            <!-- El canvas para la gráfica -->
                             <canvas id="commercesChartTow"></canvas>
                         </div>
                     </div>
@@ -112,11 +109,6 @@
 </div>
 <script>
     window.addEventListener('DOMContentLoaded', (event) => {
-    // For tasks
-
-
-
-    // For projects
     let projects = document.getElementsByClassName('single-project');
     let completedProjects = 0;
     let inProgressProjects = 0;

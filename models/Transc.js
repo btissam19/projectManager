@@ -7,7 +7,7 @@ const TranscSchema = new mongoose.Schema({
     },
     developer: {
         type: String,
-        ref: 'User',  // This is more for documentation than functionality since it's a String and not ObjectId
+        ref: 'User',  
         required: true
     },
     client: {

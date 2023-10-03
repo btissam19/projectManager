@@ -27,17 +27,12 @@
         {{#if messages}}
             {{#each messages}}     
             <div class="bg-white shadow-md rounded-md p-4 max-w-sm mx-auto">
-                <!-- Chat Card -->
                 <div class="flex items-start space-x-3">
-                    <!-- User Initial in Red Circle -->
                     <div class="w-12 h-12 rounded-full bg-gradient-to-r from-cyan-400 to-cyan-600 text-white flex items-center justify-center text-2xl font-bold" data-initial="{{username}}">
-                        <!-- User Initial will be added by JavaScript -->
                     </div>
 
                     <div>
-                        <!-- User Name -->
-                        <h2 class="text-xl font-medium text-gray-900" data-email="{{username}}"></h2>
-                        <!-- Message -->
+                        <h2 class="text-xl font-medium text-gray-900" data-email="{{username}}"></h2
                         <p class="text-gray-600">{{message}}</p>
                     </div>
                 </div>

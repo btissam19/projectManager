@@ -32,7 +32,7 @@
                     </div>
 
                     <div>
-                        <h2 class="text-xl font-medium text-gray-900" data-email="{{username}}"></h2
+                        <h2 class="text-xl font-medium text-gray-900" data-email="{{username}}"></h2>
                         <p class="text-gray-600">{{message}}</p>
                     </div>
                 </div>
@@ -51,24 +51,7 @@
 
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const nameElements = document.querySelectorAll('[data-email]');
-        const initialElements = document.querySelectorAll('[data-initial]');
-
-        nameElements.forEach(el => {
-            const email = el.getAttribute('data-email');
-            const name = email.split('@')[0].split('.').join(' ');
-            el.textContent = name;
-        });
-
-        initialElements.forEach(el => {
-            const username = el.getAttribute('data-initial');
-            const initial = username[0].toUpperCase();
-            el.textContent = initial;
-        });
-    });
-</script>
+<script src="/JS/messageForAdmin.js"></script>
 
 </body>
 </html>

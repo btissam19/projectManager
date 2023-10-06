@@ -28,7 +28,7 @@
     <table class="min-w-max w-full table-auto bg-white shadow-md rounded-lg m-auto" id="tablDom">
         <thead>
             <tr class="bg-gradient-to-r from-cyan-400 to-cyan-600 text-white">
-                <th class="py-3 px-6 text-left font-bold uppercase text-sm leading-normal w-1/2">Full Name</th>
+                <th class="py-3 px-6 text-left font-bold uppercase text-sm leading-normal w-1/2">Full Name </th>
                 <th class="py-3 px-6 text-center font-bold uppercase text-sm leading-normal w-1/2">Username</th>
             </tr>
         </thead>
@@ -60,17 +60,7 @@
             </div>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const nameElements = document.querySelectorAll('[data-email]');
-            nameElements.forEach(el => {
-                const email = el.getAttribute('data-email');
-                const name = email.split('@')[0].split('.').join(' ');
-                el.textContent = name;
-            });
-        });
-    </script>
+    <script src="/JS/users.js"></script>
 </body>
 
 </html>

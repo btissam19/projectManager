@@ -12,5 +12,4 @@ validPassword=(password, storedHash) =>{
   return bcrypt.compareSync(password, storedHash);
 }
 
-module.exports.validPassword = validPassword;
-module.exports.genPassword = genPassword;
+module.exports={validPassword, genPassword};

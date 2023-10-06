@@ -12,7 +12,7 @@ const getAllTruncs = async (req, res) => {
 
 const createTruncs = async (req, res) => {
     try {
-        const { project, developer, client, status } = req.body;  // Expect developer to be a field in the form
+        const { project, developer, client, status } = req.body; 
         const newTruncs = new Truncs({ project, developer, client, status });
         await newTruncs.save();
         return res.json(newTruncs);

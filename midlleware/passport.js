@@ -1,7 +1,7 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const { User } = require('./mongo');
-const validPassword = require('../midlleware/passportUtiliies').validPassword;
+const { User } = require('../database/mongo');
+const validPassword = require('./passportUtiliies').validPassword;
 
 const customFields = {
     usernameField: 'email',

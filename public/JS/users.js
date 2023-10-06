@@ -1,5 +1,4 @@
-
-        document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
             const nameElements = document.querySelectorAll('[data-email]');
             nameElements.forEach(el => {
                 const email = el.getAttribute('data-email');

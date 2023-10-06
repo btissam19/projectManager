@@ -11,7 +11,6 @@ const createMessage = async (req, res) => {
     try {
         const { message } = req.body;
         const username = req.user.username; 
-
         const newMessage = new Message({ 
             message,
             username

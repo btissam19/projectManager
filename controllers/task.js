@@ -11,7 +11,6 @@ const getAllTask = async (req, res) => {
         res.json({ msg: e });
     }
 }
-
 const createNewTask = async (req, res) => {
     try {
         const { name } = req.body;
@@ -26,7 +25,6 @@ const createNewTask = async (req, res) => {
         res.status(500).json({ msg: e.message });
     }
 }
-
 const getSingleTask = async (req, res) => {
     try {
         const taskId = req.params.id;
@@ -57,8 +55,6 @@ const editTask = async (req, res) => {
         if (!task) {
             return res.status(404).send();
         }
-
-        // Update the task
         updates.forEach((update) => task[update] = req.body[update]);
         await task.save();
 
@@ -72,16 +68,11 @@ const deleteTask = async (req, res) => {
     try {
         const taskId = req.params.id;
         await Task.findByIdAndDelete(taskId);
-        res.json({ msg: 'Task deleted successfully' });
+        return res.render('addtaks', { layout: false , msg: "task deleted successfully" });
     } catch (e) {
-        res.status(500).json({ msg: e.message });
+        console.log(e);
+        return res.render('addtaks', { layout: false , msg: "failed to delete task" });
     }
 }
 
-module.exports = {
-    deleteTask,
-    editTask,
-    getSingleTask,
-    createNewTask,
-    getAllTask
-};
+module.exports = { deleteTask,editTask,getSingleTask,createNewTask,getAllTask};

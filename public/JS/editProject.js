@@ -1,5 +1,5 @@
 
-    const formAlertDOM = document.querySelector('.form-alert');
+const formAlertDOM = document.querySelector('.form-alert');
 document.getElementById('update-form').addEventListener('submit', async (e) => {
     e.preventDefault()
     const formData = {

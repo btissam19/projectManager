@@ -12,7 +12,7 @@ const verifyCallback = (username, password, done) => {
     User.findOne({ username: username })
         .then((user) => {
             if (!user) { 
-                return done(null, false, { message: 'User not found.' }); // Added custom message here
+                return done(null, false, { message: 'User not found.' }); 
             }
             
             const isValid = validPassword(password, user.hash, user.salt);
@@ -20,7 +20,7 @@ const verifyCallback = (username, password, done) => {
             if (isValid) {
                 return done(null, user);
             } else {
-                return done(null, false, { message: 'Wrong password.' }); // Added custom message here
+                return done(null, false, { message: 'Wrong password.' });
             }
         })
         .catch((err) => {   

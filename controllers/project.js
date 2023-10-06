@@ -1,5 +1,4 @@
 const { Project, User } = require('../database/mongo');
-
 const getAllProject = async (req, res) => {
     try {
         const projects = await Project.find({}).lean();
@@ -9,7 +8,6 @@ const getAllProject = async (req, res) => {
         res.json({ msg: e.message });
     }
 };
-
 const createProject = async (req, res) => {
     try {
         const { project, developer, client, status } = req.body; 
@@ -28,7 +26,6 @@ const getAllProjectforUser = async (req, res) => {
         res.json({ msg: e });
     }
 };
-
 const getOneProject = async (req, res) => {
     try {
         const project = await Project.findById(req.params.id).lean();
@@ -40,16 +37,13 @@ const getOneProject = async (req, res) => {
         res.json({ msg: e.message });
     }
 };
-
 const updatProject = async (req, res) => {
     const allowedUpdates = ['project', 'developer', 'client', 'status'];
     const updates = Object.keys(req.body);
     const isValidUpdate = updates.every(update => allowedUpdates.includes(update));
-
     if (!isValidUpdate) {
         return res.status(400).send({ error: 'Invalid updates!' });
     }
-
     try {
         const projects = await Project.findById(req.params.id);
         if (!projects) {
@@ -62,14 +56,15 @@ const updatProject = async (req, res) => {
         res.status(500).json({ msg: e.message });
     }
 };
-
 const deleteProject = async (req, res) => {
     try {
         await Project.findByIdAndDelete(req.params.id);
-        return res.json({ msg: "Project deleted successfully" });
+        return res.json({ success: true, msg: "Project deleted successfully" });
     } catch (e) {
-        res.json({ msg: e.message });
+        console.log(e);
+        return res.status(500).json({ success: false, msg: "Failed to delete project" });
     }
 };
+
 
 module.exports = { createProject, getAllProject, updatProject, deleteProject, getOneProject, getAllProjectforUser };

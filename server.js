@@ -1,4 +1,3 @@
-// server.js
 
 require('dotenv').config();
 const port = process.env.PORT || 3000;
@@ -8,10 +7,8 @@ const exphbs = require('express-handlebars');
 const session = require('express-session');
 const passport = require('passport');
 const ConnectMongo = require('connect-mongo');
-
 const { connectDB } = require('./database/mongo');
 
-// Routes
 const taskrouter = require('./router/task');
 const projectsRoute = require('./router/project');
 const messageRoute = require('./router/message');
@@ -48,7 +45,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Use routes
+
 app.use('/task', taskrouter);
 app.use('/projects', projectsRoute);
 app.use('/message', messageRoute);

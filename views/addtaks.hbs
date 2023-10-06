@@ -1,64 +1,72 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
-    />
-    <link rel="stylesheet" href="/CSS/normalize.css" />
-    <link rel="stylesheet" href="/CSS/main.css" />
-    <style >
-
-      
+<html lang="es">
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/CSS/dashboardout.css">
+    <style>
+        @media (max-width: 768px) {
+            .flex-wrap {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .section-small {
+                width: 50%;
+            }
+        }
     </style>
-    <title>Add Task</title>
-  </head>
-  <body>
-    <form class="task-form">
-      <h4>task manager</h4>
-      <div class="form-control">
-        <input
-          type="text"
-          name="name"
-          class="task-input"
-          placeholder="assite the meeting"
-          required
-        />
-        <button type="submit" class="btn submit-btn">submit</button>
-      </div>
-      <div class="form-alert"></div>
-    </form>
-    <section class="tasks-container">
-      <p class="loading-text">Loading...</p>
-     <div class="tasks">
-    {{#each tasks}}
-    <div class="single-task {{#if completed}}task-completed{{/if}}">
-        <h5><span><i class="far fa-check-circle"></i></span>{{name}}</h5>
-        <div class="task-links">
-            <a href="/task/{{_id}}" class="edit-link">
-    <i class="fas fa-edit"></i>
-</a>
-            <button type="button" class="delete-btn" data-id="{{_id}}">
-                <i class="fas fa-trash"></i>
-            </button>
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen flex items-center justify-center">
+        <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-lg">
+            <h4 class="text-center text-2xl font-semibold text-gray-500 mt-8 mb-6">Task Manager</h4>
+
+            <form class="task-form">
+                <div class="mb-6 form-control">
+                    <input type="text" name="name" class="task-input w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" placeholder="Assist the meeting" required />
+                </div>
+
+                <div class="w-32 bg-gradient-to-r from-cyan-400 to-cyan-600 text-white text-center py-2 rounded-lg mx-auto block focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 mt-4 mb-6">
+                    <button type="submit" class="bg-transparent btn submit-btn border-none cursor-pointer outline-none">submit</button>
+                </div>
+
+                <div class="form-alert text-red-dark text-center mb-4"></div>
+            </form>
+            <section class="tasks-container">
+                 <p class="loading-text"></p>
+                <div class="tasks">
+                    {{#each tasks}}
+                        <div class="single-task {{#if completed}}task-completed{{/if}} flex justify-between items-center mb-4 bg-gray-50 p-3 rounded-lg">
+                            <h5 class="flex items-center">
+                    {{#if completed}}
+                            <span class="mr-3"><i class="fas fa-check-circle text-green-500"></i></span>
+                   {{else}}
+                            <span class="mr-3"><i class="far fa-circle text-gray-500"></i></span>
+                  {{/if}}
+                                <span class="mr-3"><i class="far fa-check-circl"></i></span>
+                                {{name}}
+                            </h5>
+                            <div class="task-links flex items-center gap-3">
+                                <a href="/task/{{_id}}" class="edit-link text-green-600">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button type="button" class="delete-btn text-red-600" data-id="{{_id}}">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </section>
+            <div class="text-center">
+        <a href="/dashboard" class="text-cyan-600">back to dashboard</a></p></div>
+</div>
         </div>
     </div>
-    {{/each}}
-</div>
-      <a href="/dashboard" class="" style="display: block; margin: 50px auto; text-align: center; background-color: transparent; color: #06B6D4;">back to dashboard</a>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="/JS/addTask.js"></script>
+</body>
 
 
-    </section>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"
-      integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-<script src="/JS/addTask.js"></script>
-  </body>
 </html>

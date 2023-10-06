@@ -14,11 +14,4 @@ const Task=connectDB.model('Task',taskSchema)
 const Project=connectDB.model('Project',projectSchema)
 const Message=connectDB.model('Message',MessageSchema)
 
-module.exports = {
-    connectDB,
-    User ,
-    Task,
-    Project,
-    Message
-  
-};
+module.exports = { connectDB, User , Task, Project, Message};

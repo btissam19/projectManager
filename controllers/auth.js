@@ -46,10 +46,13 @@ const signup = async (req, res, next) => {
 const showSignup = (req, res) => {
     res.render('sing', { layout: false });
 };
+const showLogin = (req, res) => {
+    res.render('login', { layout: false });
+};
 const logout = function(req, res, next) {
     req.logout(function(err) {
         if (err) { return next(err); }
         res.redirect('/');
     });
 };
-module.exports={login,signup,showSignup,logout}
+module.exports={login,signup,showSignup,logout,showLogin}

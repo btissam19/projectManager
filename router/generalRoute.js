@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', (req, res) => {  
     let errorMessage = req.query.error;
-    res.render('login', { layout: false, error: errorMessage });
+    res.render('home', { layout: false, error: errorMessage });
 });
 
 router.get('/dashboard', isAuth, async (req, res) => {

@@ -531,6 +531,10 @@ video {
   margin-left: -0.75rem;
   margin-right: -0.75rem;
 }
+.mx-4 {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
 .mx-auto {
   margin-left: auto;
   margin-right: auto;

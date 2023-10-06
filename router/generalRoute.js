@@ -46,7 +46,7 @@ router.get('/Admindashboard', isAuth, isAdmin, async (req, res) => {
 router.get('/project', isAuth, async (req, res) => {
     try {
         const users = await User.find({}).lean();
-        res.render('projectForms', { layout: false, users:users });
+        res.render('addProject', { layout: false, users:users });
     } catch (error) {
         console.log(error);
     }
@@ -65,7 +65,6 @@ router.get('/users', isAdmin, async (req, res) => {
 router.get('/users/messages', isAuth, isAdmin, async (req, res) => {
     try {
         const messages = await Message.find({}).lean(); 
-        console.log("Authenticated username:", req.user.username);
         res.render('messageforAdmin', { layout: false, messages: messages });
     } catch (err) {
         console.log(err);

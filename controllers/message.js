@@ -3,7 +3,6 @@ const { Message } = require("../database/mongo");
 const getAllMessages = async (req, res) => {
     try {
         const messages = await Message.find({}).lean();
-        console.log(messages)
     } catch (e) {
         res.json({ msg: e });
     }

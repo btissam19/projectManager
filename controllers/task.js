@@ -3,7 +3,7 @@ const { Task } = require("../database/mongo");
 const getAllTask = async (req, res) => {
     try {
         const tasks = await Task.find({user: req.user._id }).lean();
-        return res.render('taksindex', { 
+        return res.render('addtaks', { 
             layout: false,
             tasks: tasks
         });
@@ -36,7 +36,7 @@ const getSingleTask = async (req, res) => {
             return res.status(404).send('Task not found');
         }
 
-        res.render('task', { task: task, layout: false });
+        res.render('editTask', { task: task, layout: false });
     } catch (e) {
         res.status(500).send('Server Error');
     }

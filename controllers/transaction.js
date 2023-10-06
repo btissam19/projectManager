@@ -4,7 +4,7 @@ const getAllTruncs = async (req, res) => {
     try {
         const truncs = await Truncs.find({}).lean();
         const users = await User.find({}).lean();
-        return res.render('projectClient', { layout: false, truncs, users });
+        return res.render('projectIndex', { layout: false, truncs, users });
     } catch (e) {
         res.json({ msg: e.message });
     }

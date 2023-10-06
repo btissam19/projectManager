@@ -13,9 +13,8 @@ const { connectDB } = require('./database/mongo');
 
 // Routes
 const taskrouter = require('./router/task');
-const transcRoute = require('./router/transaction');
+const projectsRoute = require('./router/project');
 const messageRoute = require('./router/message');
-// const authRoute = require('./router/auth');
 const loginRoute=require('./router/auth/login')
 const logoutRoute=require('./router/auth/logout')
 const singupRoute=require('./router/auth/singup')
@@ -51,7 +50,7 @@ app.use(passport.session());
 
 // Use routes
 app.use('/task', taskrouter);
-app.use('/transaction', transcRoute);
+app.use('/projects', projectsRoute);
 app.use('/message', messageRoute);
 app.use('/singup',singupRoute);
 app.use('/login', loginRoute); 

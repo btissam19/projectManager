@@ -24,23 +24,23 @@
       <form  id="update-form">
            <div class="mb-4">
           <label class="block mb-2 text-sm text-gray-600">project Id:</label>
-          <input type="" id="project-edit-id"  class=" projectedit w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"value="{{truncs._id}}">
+          <input type="" id="project-edit-id"  class=" projectedit w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500"value="{{project._id}}">
         </div>
         <div class="mb-4">
           <label class="block mb-2 text-sm text-gray-600">project Name</label>
-          <input type="text" id="projectedit" name="project" value="{{truncs.project}}" class=" projectedit w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
+          <input type="text" id="projectedit" name="project" value="{{project.project}}" class=" projectedit w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
         </div>
         <div class="mb-4">
           <label for="email" class="block mb-2 text-sm text-gray-600">Devlopper Name</label>
-          <input type="text" id="devloperedit" value="{{truncs.developer}}" name="developer" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
+          <input type="text" id="devloperedit" value="{{project.developer}}" name="developer" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
         </div>
         <div class="mb-4">
           <label for="password" class="block mb-2 text-sm text-gray-600">Client Name</label>
-          <input type="text" id="clientedit" value="{{truncs.client}}" name="client" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
+          <input type="text" id="clientedit" value="{{project.client}}" name="client" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
         </div>
         <div class="mb-6">
           <label for="confirmPassword" class="block mb-2 text-sm text-gray-600">status</label>
-      <select id="statusedit" value="{{truncs.status}}" name="status" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
+      <select id="statusedit" value="{{project.status}}" name="status" class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-500" required>
         <option value="completed">Completed</option>
         <option value="in_progress">In Progress</option>
         <option value="cancelled">Cancelled</option>
@@ -50,7 +50,7 @@
       </form>
     <div class="form-alert"></div>
       <div class="text-center">
-        <p class="text-sm"><a href="/transaction" class="text-cyan-600">Go back</a></p>
+        <p class="text-sm"><a href="/projects" class="text-cyan-600">Go back</a></p>
       </div>
     </div>
   </div>

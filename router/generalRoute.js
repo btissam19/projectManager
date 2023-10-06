@@ -1,5 +1,5 @@
 const express = require('express');
-const { Task, Truncs, User, Message } = require('../database/mongo');
+const { Task, Project, User, Message } = require('../database/mongo');
 const isAuth = require('../midlleware/authoMiddleware').isAuth;
 const isAdmin = require('../midlleware/authoMiddleware').isAdmin;
 
@@ -13,11 +13,11 @@ router.get('/', (req, res) => {
 router.get('/dashboard', isAuth, async (req, res) => {
     try {
         const { _id, username } = req.user;
-        const [tasks, truncs] = await Promise.all([
+        const [tasks, projects] = await Promise.all([
             Task.find({ user: _id }).lean(),
-            Truncs.find({ developer: username }).lean()
+            Project.find({ developer: username }).lean()
         ]);
-        res.render('layouts/dashboard', { layout: false, tasks, truncs , username});
+        res.render('layouts/dashboard', { layout: false, tasks, projects , username});
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');
@@ -26,8 +26,8 @@ router.get('/dashboard', isAuth, async (req, res) => {
 
 router.get('/project/user', isAuth, async (req, res) => {
     try {
-        const truncs = await Truncs.find({developer:req.user.username}).lean();
-        return res.render('projectforNormaleUser', { layout: false, truncs: truncs});
+        const projects = await Project.find({developer:req.user.username}).lean();
+        return res.render('projectforNormaleUser', { layout: false, projects: projects});
     } catch (e) {
         res.json({ msg: e });
     }
@@ -35,8 +35,8 @@ router.get('/project/user', isAuth, async (req, res) => {
 
 router.get('/Admindashboard', isAuth, isAdmin, async (req, res) => {
     try { 
-        const truncs = await Truncs.find({}).lean();
-        res.render('layouts/adminDashboard', { layout: false, truncs: truncs });
+        const projects = await Project.find({}).lean();
+        res.render('layouts/adminDashboard', { layout: false, projects: projects });
     } catch (error) {
         console.error(error);
         res.status(500).send('Internal Server Error');

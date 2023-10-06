@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const TranscSchema = new mongoose.Schema({
+const ProjectcSchema = new mongoose.Schema({
     project: {
         type: String, 
         required: true
@@ -22,4 +22,4 @@ const TranscSchema = new mongoose.Schema({
   
 });
 
-module.exports = TranscSchema;
+module.exports = ProjectcSchema;

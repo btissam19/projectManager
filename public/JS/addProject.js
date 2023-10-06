@@ -20,7 +20,7 @@
     };
 
     try {
-        const response = await axios.post('/transaction', formData, {
+        const response = await axios.post('/projects', formData, {
             headers: {
                 'Content-Type': 'application/json',
             },

@@ -12,7 +12,7 @@ document.getElementById('update-form').addEventListener('submit', async (e) => {
     const projectId = document.getElementById('project-edit-id').value;
 
     try {
-        const response = await axios.patch(`/transaction/${projectId}`, formData);
+        const response = await axios.patch(`/projects/${projectId}`, formData);
 
         if (response.data.msg === "Project updated successfully") {
           formAlertDOM.style.display = 'block';

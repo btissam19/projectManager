@@ -6,7 +6,7 @@
         const deleteButton = el.classList.contains('delete-btn') ? el : el.parentElement;
         const id = deleteButton.dataset.id;
         try {
-            const response = await axios.delete(`/transaction/${id}`);
+            const response = await axios.delete(`/projects/${id}`);
             
             console.log("Response from server:", response);
                 

@@ -1,6 +1,6 @@
 const { User } = require('../database/mongo');
 const passport = require('passport');
-const ADMIN_EMAILS = ['admin@gamil.com'];
+const ADMIN_EMAILS = process.env.ADMIN_EMAIL;
 const {genPassword}=require('../midlleware/passportUtiliies')
 require('../midlleware/passport')
 const login = (req, res, next) => {

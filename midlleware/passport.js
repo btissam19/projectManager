@@ -34,12 +34,14 @@ const strategy  = new LocalStrategy(customFields, verifyCallback);
 passport.use(strategy);
 
 passport.serializeUser((user, done) => {
+    console.log(user)
     done(null, user.id);
 });
 
 passport.deserializeUser((userId, done) => {
     User.findById(userId)
         .then((user) => {
+            console.log(userId)
             done(null, user);
         })
         .catch(err => done(err))

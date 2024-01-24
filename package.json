@@ -22,7 +22,7 @@
     "express-session": "^1.17.3",
     "g": "^2.0.1",
     "hbs": "^4.2.0",
-    "mongodb": "^5.7.0",
+    "mongodb": "^6.3.0",
     "mongoose": "^7.4.3",
     "mongose": "^0.0.2-security",
     "node-sass": "^9.0.0",

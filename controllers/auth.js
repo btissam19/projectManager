@@ -1,6 +1,5 @@
 const { User } = require('../database/mongo');
 const passport = require('passport');
-const ADMIN_EMAILS = process.env.ADMIN_EMAIL;
 const {genPassword}=require('../midlleware/passportUtiliies')
 require('../midlleware/passport')
 const login = (req, res, next) => {
@@ -34,7 +33,6 @@ const signup = async (req, res, next) => {
     const newUser = new User({
         username: req.body.email,
         hash: hash,
-        admin: ADMIN_EMAILS.includes(req.body.email)
     });
     newUser.save()
         .then((user) => {
